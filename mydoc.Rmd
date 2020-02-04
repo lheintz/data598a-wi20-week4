@@ -1,0 +1,67 @@
+---
+title: "My Rmd document"
+author: "Lauren Heintz"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: bookdown::html_document2
+---
+
+# Playing in Markdown
+
+Here is some inline code `r 1 + 1`
+
+```{r, starwars-plot, fig.cap = "A ggplots of starwars stuff"}
+library(tidyverse)
+
+starwars %>% filter(species == "Human") %>% ggplot() + aes(x = height, y = mass) + geom_point()
+
+```
+
+```{r starwars-tbl}
+
+starwars %>% filter(species == "Human") %>% 
+  select(name,
+         height,
+         mass,
+         homeworld) %>%
+  knitr::kable(caption = "A knitr kable table of starwars data"
+  )
+
+```
+
+```{r, my-fig, fig.cap = "My non-code figure"}
+
+knitr::include_graphics("figures/mini-australian-shepherd-long.jpg")
+
+```
+
+we can see in figure \ref(fig:my-fig) ...
+
+
+We can see in Plot \@ref(fig:starwars-plot) ...
+We can see in Table \@ref(tab:starwars-tbl) ...
+
+Also see @fenner2012a
+
+# References
+
+Reference 1: [Website on Australia Shepherds](https://thehappypuppysite.com/mini-australian-shepherd/)
+
+---
+references:
+- id: fenner2012a
+  title: One-click science marketing
+  author:
+  - family: Fenner
+    given: Martin
+  container-title: Nature Materials
+  volume: 11
+  URL: 'http://dx.doi.org/10.1038/nmat3283'
+  DOI: 10.1038/nmat3283
+  issue: 4
+  publisher: Nature Publishing Group
+  page: 261-263
+  type: article-journal
+  issued:
+    year: 2012
+    month: 3
+---
