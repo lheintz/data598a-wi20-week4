@@ -5,7 +5,49 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: bookdown::html_document2
 ---
 
-# Playing in Markdown
+``` {r setup, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  echo = FALSE,
+  comment = "#>",
+  fig.path = "../figures")
+knitr::read_chunk("src/my-external-code.R")
+```
+
+# Importing some data
+
+```{r import-data, cache = TRUE, cache.extra=tools::md5sum('weekdays.csv')}
+d <- read.csv('weekdays.csv')
+
+```
+
+``` {r-long-running-code, cache=TRUE}
+results <- data.frame(d)
+```
+
+```{r dependson="long-running-code", cache=TRUE}
+print(results)
+```
+
+# Running a bit of external code cvf
+
+```{r set-up-the-data, eval = FALSE}
+
+```
+
+```{r set-up-and-print-the-data, echo = FALSE}
+<<set-up-the-data>>
+<<print-the-data>>
+
+```
+
+```{r plot-the-data, echo = FALSE}
+
+```
+
+# Playing with tidyverse in Markdown
 
 Here is some inline code `r 1 + 1`
 
@@ -28,19 +70,13 @@ starwars %>% filter(species == "Human") %>%
 
 ```
 
-```{r, my-fig, fig.cap = "My non-code figure"}
+```{r, dog-fig, fig.cap = "My non-code figure of a dog"}
 
 knitr::include_graphics("figures/mini-australian-shepherd-long.jpg")
 
 ```
 
-we can see in figure \ref(fig:my-fig) ...
 
-
-We can see in Plot \@ref(fig:starwars-plot) ...
-We can see in Table \@ref(tab:starwars-tbl) ...
-
-Also see @fenner2012a
 
 # References
 
