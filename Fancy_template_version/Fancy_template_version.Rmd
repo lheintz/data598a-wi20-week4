@@ -1,8 +1,16 @@
 ---
-title: "My Rmd document"
-author: "Lauren Heintz"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
-output: bookdown::html_document2
+title: Learning To Use R Markdown
+author:
+  - name: Lauren Heintz
+    email: heintzl@uw.edu
+    affiliation: University of Washington
+abstract: |
+  This document will be an experimentation of a few tasks in R markdown.
+
+  The starwars dataset and tidyverse will be used.
+bibliography: sigproc.bib
+csl: acm-sig-proceedings.csl
+output: rticles::acm_article
 ---
 
 ``` {r setup, echo = FALSE}
@@ -11,13 +19,11 @@ knitr::opts_chunk$set(
   warning = FALSE,
   message = FALSE,
   echo = FALSE,
-  comment = "#>",
-  fig.path = "../figures")
-knitr::read_chunk("src/my-external-code.R")
+  comment = "#>")
+knitr::read_chunk("my-external-code.R")
 ```
 
-# Importing some data
-
+# Caching Some Data 
 ```{r import-data, cache = TRUE, cache.extra=tools::md5sum('weekdays.csv')}
 d <- read.csv('weekdays.csv')
 
@@ -31,8 +37,7 @@ results <- data.frame(d)
 print(results)
 ```
 
-# Running a bit of external code 
-
+# Run External Code
 ```{r set-up-the-data, eval = FALSE}
 
 ```
@@ -47,8 +52,7 @@ print(results)
 
 ```
 
-# Playing with tidyverse in Markdown
-
+# Use tidyverse and StarWars Data Set
 Here is some inline code `r 1 + 1`
 
 ```{r, starwars-plot, fig.cap = "A ggplots of starwars stuff"}
@@ -60,31 +64,45 @@ starwars %>% filter(species == "Human") %>% ggplot() + aes(x = height, y = mass)
 
 ```{r starwars-tbl}
 
-starwars %>% filter(species == "Human") %>% 
+starwars %>% filter(species == "Human", height < 166) %>% 
   select(name,
          height,
          mass,
          homeworld) %>%
-  knitr::kable(caption = "A knitr kable table of starwars data"
+  knitr::kable(caption = "A knitr kable table of starwars data", format = "latex"
   )
 
 ```
 
-```{r, dog-fig, fig.cap = "My non-code figure of a dog"}
-
-knitr::include_graphics("figures/mini-australian-shepherd-long.jpg")
-
-```
-
-
-
 # References
 
-Reference 1: [Website on Australia Shepherds](https://thehappypuppysite.com/mini-australian-shepherd/)
+Reference 1: [Fenner](https://thehappypuppysite.com/mini-australian-shepherd/)
 
 ---
 references:
 - id: fenner2012a
+  title: One-click science marketing
+  author:
+  - family: Fenner
+    given: Martin
+  container-title: Nature Materials
+  volume: 11
+  URL: 'http://dx.doi.org/10.1038/nmat3283'
+  DOI: 10.1038/nmat3283
+  issue: 4
+  publisher: Nature Publishing Group
+  page: 261-263
+  type: article-journal
+  issued:
+    year: 2012
+    month: 3
+---
+
+Reference 2: [Saloman](https://thehappypuppysite.com/mini-australian-shepherd/)
+
+---
+references:
+- id: Saloman
   title: One-click science marketing
   author:
   - family: Fenner
